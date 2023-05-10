@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import './style.css';
 
 function Controls({onAdd}){
+
+  console.log('Controls');
+
   return (
     <div className='Controls'>
       <button onClick={() => onAdd()}>Добавить</button>
@@ -18,4 +21,4 @@ Controls.defaultProps = {
   onAdd: () => {}
 }
 
-export default Controls;
+export default React.memo(Controls);

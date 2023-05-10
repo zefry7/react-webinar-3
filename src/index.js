@@ -19,8 +19,10 @@ const store = new Store({
 const root = createRoot(document.getElementById('root'));
 
 store.subscribe(() => {
-  root.render(<App store={store}/>);
+  console.log('- Перерендер -');
+  root.render(<App store={store}/>); // React.createElement(App, {store})
 });
 
 // Первый рендер приложения
+console.log('- Первый рендер -');
 root.render(<App store={store}/>);

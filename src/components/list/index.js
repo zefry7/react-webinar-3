@@ -4,6 +4,9 @@ import Item from "../item";
 import './style.css';
 
 function List({list, onDeleteItem, onSelectItem}){
+
+  console.log('List');
+
   return (
     <div className='List'>{
       list.map(item =>
@@ -28,4 +31,4 @@ List.defaultProps = {
   onSelectItem: () => {},
 }
 
-export default List;
+export default React.memo(List);

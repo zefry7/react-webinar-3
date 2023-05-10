@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
@@ -11,19 +11,21 @@ import PageLayout from "./components/page-layout";
  */
 function App({store}) {
 
+  console.log('App');
+
   const list = store.getState().list;
 
-  const onDeleteItem = (code) => {
+  const onDeleteItem = useCallback((code) => {
     store.deleteItem(code);
-  }
+  }, [store]);
 
-  const onSelectItem = (code) => {
+  const onSelectItem = useCallback((code) => {
     store.selectItem(code);
-  }
+  }, [store]);
 
-  const onAddItem = () => {
+  const onAddItem = useCallback(() => {
     store.addItem();
-  }
+  }, [store]);
 
   return (
     <PageLayout>

@@ -5,6 +5,8 @@ import './style.css';
 
 function PageLayout({children}) {
 
+  console.log('PageLayout');
+
   const cn = bem('PageLayout');
 
   return (
@@ -20,4 +22,4 @@ PageLayout.propTypes = {
   children: PropTypes.node
 }
 
-export default PageLayout;
+export default React.memo(PageLayout);

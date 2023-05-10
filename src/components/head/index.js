@@ -1,9 +1,12 @@
 import React from "react";
-import './style.css';
 import PropTypes from "prop-types";
 import Item from "../item";
+import './style.css';
 
 function Head({title}){
+
+  console.log('Head');
+
   return (
     <div className='Head'>
       <h1>{title}</h1>
@@ -15,4 +18,4 @@ Head.propTypes = {
   title: PropTypes.node,
 };
 
-export default Head;
+export default React.memo(Head);

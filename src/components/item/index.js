@@ -3,6 +3,9 @@ import PropTypes from "prop-types";
 import './style.css';
 
 function Item({item, onDelete, onSelect}){
+
+  console.log('Item', item.code);
+
   return (
     <div className={'Item' + (item.selected ? ' Item_selected' : '')}
          onClick={() => onSelect(item.code)}>
@@ -20,7 +23,7 @@ function Item({item, onDelete, onSelect}){
 Item.propTypes = {
   item: PropTypes.shape({
     code: PropTypes.number,
-    title: PropTypes.number,
+    title: PropTypes.string,
     selected: PropTypes.bool
   }).isRequired,
   onDelete: PropTypes.func,
@@ -32,4 +35,4 @@ Item.defaultProps = {
   onSelect: () => {},
 }
 
-export default Item;
+export default React.memo(Item);
