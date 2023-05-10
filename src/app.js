@@ -11,11 +11,25 @@ import PageLayout from "./components/page-layout";
  */
 function App({store}) {
 
+  const list = store.getState().list;
+
+  const onDeleteItem = (code) => {
+    store.deleteItem(code);
+  }
+
+  const onSelectItem = (code) => {
+    store.selectItem(code);
+  }
+
+  const onAddItem = () => {
+    store.addItem();
+  }
+
   return (
     <PageLayout>
       <Head title='Приложение на чистом JS'/>
-      <Controls store={store}/>
-      <List store={store}/>
+      <Controls onAdd={onAddItem}/>
+      <List list={list} onDeleteItem={onDeleteItem} onSelectItem={onSelectItem}/>
     </PageLayout>
   );
 }
