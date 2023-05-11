@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import './style.css';
+import {plural} from "../../utils";
 
 function Item({item, onDelete, onSelect}){
 
@@ -10,7 +11,9 @@ function Item({item, onDelete, onSelect}){
     <div className={'Item' + (item.selected ? ' Item_selected' : '')}
          onClick={() => onSelect(item.code)}>
       <div className='Item-code'>{item.code}</div>
-      <div className='Item-title'>{item.title}</div>
+      <div className='Item-title'>
+        {item.title} {item.count && ` | Выделяли ${item.count} ${plural(item.count, {one: 'раз', few: 'раза', many: 'раз'})}`}
+      </div>
       <div className='Item-actions'>
         <button onClick={() => onDelete(item.code)}>
           Удалить
@@ -24,7 +27,8 @@ Item.propTypes = {
   item: PropTypes.shape({
     code: PropTypes.number,
     title: PropTypes.string,
-    selected: PropTypes.bool
+    selected: PropTypes.bool,
+    count: PropTypes.number
   }).isRequired,
   onDelete: PropTypes.func,
   onSelect: PropTypes.func
