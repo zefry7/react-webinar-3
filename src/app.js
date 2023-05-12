@@ -11,8 +11,6 @@ import PageLayout from "./components/page-layout";
  */
 function App({store}) {
 
-  console.log('App');
-
   const list = store.getState().list;
 
   const callbacks = {

@@ -1,12 +1,11 @@
 import React, {useState} from "react";
 import PropTypes from "prop-types";
-import './style.css';
 import {plural} from "../../utils";
+import './style.css';
 
 function Item(props){
 
-  console.log('Item', props.item.code);
-
+  // Счётчик выделений
   const [count, setCount] = useState(0);
 
   const callbacks = {

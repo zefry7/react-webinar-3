@@ -5,8 +5,6 @@ import './style.css';
 
 function PageLayout({children}) {
 
-  console.log('PageLayout');
-
   const cn = bem('PageLayout');
 
   return (
