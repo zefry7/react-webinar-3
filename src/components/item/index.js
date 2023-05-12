@@ -3,28 +3,34 @@ import PropTypes from "prop-types";
 import './style.css';
 import {plural} from "../../utils";
 
-function Item({item, onDelete, onSelect}){
+function Item(props){
 
-  console.log('Item', item.code);
+  console.log('Item', props.item.code);
 
   const [count, setCount] = useState(0);
 
-  const onClick = () => {
-    onSelect(item.code);
-    if (!item.selected) {
-      setCount(count + 1);
+  const callbacks = {
+    onClick: () => {
+      props.onSelect(props.item.code);
+      if (!props.item.selected) {
+        setCount(count + 1);
+      }
+    },
+    onDelete: (e) => {
+      e.stopPropagation();
+      props.onDelete(props.item.code);
     }
   }
 
   return (
-    <div className={'Item' + (item.selected ? ' Item_selected' : '')}
-         onClick={onClick}>
-      <div className='Item-code'>{item.code}</div>
+    <div className={'Item' + (props.item.selected ? ' Item_selected' : '')}
+         onClick={callbacks.onClick}>
+      <div className='Item-code'>{props.item.code}</div>
       <div className='Item-title'>
-        {item.title} {count ? ` | Выделяли ${count} ${plural(count, {one: 'раз', few: 'раза', many: 'раз'})}` : ''}
+        {props.item.title} {count ? ` | Выделяли ${count} ${plural(count, {one: 'раз', few: 'раза', many: 'раз'})}` : ''}
       </div>
       <div className='Item-actions'>
-        <button onClick={() => onDelete(item.code)}>
+        <button onClick={callbacks.onDelete}>
           Удалить
         </button>
       </div>
