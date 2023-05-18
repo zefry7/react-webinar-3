@@ -18,7 +18,7 @@ function Item(props){
     onDelete: (e) => {
       e.stopPropagation();
       props.onDelete(props.item.code);
-    }
+    },
   }
 
   return (

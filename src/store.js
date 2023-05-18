@@ -75,7 +75,7 @@ class Store {
           return {
             ...item,
             selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
+            count: item.selected ? item.count : item.count + 1 || 1
           };
         }
         // Сброс выделения если выделена
