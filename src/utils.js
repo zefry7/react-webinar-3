@@ -5,7 +5,7 @@
  * @param variants {Object<String>} Варианты форм множественного числа.
  * @example plural(5, {one: 'товар', few: 'товара', many: 'товаров'})
  * @param [locale] {String} Локаль (код языка)
- * @returns {*|string}
+ * @returns {String}
  */
 export function plural(value, variants = {}, locale = 'ru-RU') {
   // Получаем фурму кодовой строкой: 'zero', 'one', 'two', 'few', 'many', 'other'
@@ -18,12 +18,11 @@ export function plural(value, variants = {}, locale = 'ru-RU') {
 
 /**
  * Генератор чисел с шагом 1
- * Вариант с замыканием на начальное значение в самовызываемой функции.
- * @returns {Number}
+ * @returns {Function}
  */
-export const generateCode = (function (start = 0) {
+export function codeGenerator(start = 0) {
   return () => ++start;
-}());
+}
 
 /**
  * Форматирование разрядов числа
