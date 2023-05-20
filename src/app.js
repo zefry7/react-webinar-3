@@ -18,53 +18,40 @@ function App({store}) {
 
   const [modal, setModal] = useState(null);
 
-  const list = store.getState().list;
+  const state = store.getState();
 
   const callbacks = {
-    onDeleteItem: useCallback((code) => {
-      store.deleteItem(code);
-    }, [store]),
-
-    onSelectItem: useCallback((code) => {
-      store.selectItem(code);
-    }, [store]),
-
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store]),
-
-    // Открытие корзины
-    openModalBasket: useCallback(() => {
-      setModal('basket');
-    }, [setModal]),
-
+    // Добавление в корзину
+    addToBasket: useCallback(code => store.addToBasket(code), [store]),
+    // Удаление из корзины
+    removeFromBasket: useCallback(code => store.removeFromBasket(code), [store]),
+    // Открытие модалки корзины
+    openModalBasket: useCallback(() => setModal('basket'), [setModal]),
     // Закрытие любой модалки
-    closeModal: useCallback(() => {
-      setModal(null);
-    }, [setModal]),
+    closeModal: useCallback(() => setModal(null), [setModal]),
   }
 
   const renders = {
     item: useCallback((item) => {
-      return <Item item={item} onAdd={callbacks.onDeleteItem}/>
-    }, [callbacks.onDeleteItem]),
+      return <Item item={item} onAdd={callbacks.addToBasket}/>
+    }, [callbacks.addToBasket]),
 
     itemBasket: useCallback((item) => {
-      return <ItemBasket item={item} onRemove={callbacks.onDeleteItem}/>
-    }, [callbacks.onDeleteItem]),
+      return <ItemBasket item={item} onRemove={callbacks.removeFromBasket}/>
+    }, [callbacks.removeFromBasket]),
   };
 
   return (
     <>
       <PageLayout>
         <Head title='Магазин'/>
-        <BasketTool onOpen={callbacks.openModalBasket} amount={0} sum={0}/>
-        <List list={list} renderItem={renders.item}/>
+        <BasketTool onOpen={callbacks.openModalBasket} amount={state.basket.amount} sum={state.basket.sum}/>
+        <List list={state.list} renderItem={renders.item}/>
       </PageLayout>
       {modal === 'basket' && (
         <ModalLayout title='Корзина' onClose={callbacks.closeModal}>
-          <List list={list} renderItem={renders.itemBasket}/>
-          <BasketTotal sum={0}/>
+          <List list={state.basket.list} renderItem={renders.itemBasket}/>
+          <BasketTotal sum={state.basket.sum}/>
         </ModalLayout>
       )}
     </>
