@@ -58,7 +58,7 @@ class Store {
 
     this.state = newState;
     // Вызываем всех слушателей
-    for (const listener of this.listeners) listener();
+    for (const listener of this.listeners) listener(this.state);
   }
 }
 

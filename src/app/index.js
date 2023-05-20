@@ -1,21 +1,21 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useContext, useEffect, useState} from 'react';
 import Main from "./main";
 import Basket from "./basket";
+import useStore from "../store/use-store";
+import useSelector from "../store/use-selector";
 
 /**
  * Приложение
- * @param store {Store} Хранилище состояния приложения
  * @returns {React.ReactElement}
  */
-function App({store}) {
+function App() {
 
-  const state = useState(() =>store.getState());
-
+  const {name} = useSelector(state => ({name: state.modals.name}), 'App');
 
   return (
     <>
-      <Main store={store}/>
-      {state.modals.name === 'basket' && <Basket store={store}/>}
+      <Main/>
+      {name === 'basket' && <Basket/>}
     </>
   );
 }
