@@ -1,4 +1,4 @@
-import React from "react";
+import {memo} from "react";
 import PropTypes from 'prop-types';
 import Item from "../item";
 import './style.css';
@@ -7,7 +7,7 @@ function List({list, renderItem}){
   return (
     <div className='List'>{
       list.map(item =>
-        <div key={item.code} className='List-item'>
+        <div key={item._id} className='List-item'>
           {renderItem(item)}
         </div>
       )}
@@ -17,7 +17,7 @@ function List({list, renderItem}){
 
 List.propTypes = {
   list: PropTypes.arrayOf(PropTypes.shape({
-    code: PropTypes.number
+    _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
   })).isRequired,
   renderItem: PropTypes.func,
 };
@@ -26,4 +26,4 @@ List.defaultProps = {
   renderItem: (item) => {},
 }
 
-export default React.memo(List);
+export default memo(List);

@@ -1,4 +1,4 @@
-import React from "react";
+import {memo} from "react";
 import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
 import {numberFormat} from "../../utils";
@@ -23,4 +23,4 @@ BasketTotal.defaultProps = {
   sum: 0
 }
 
-export default React.memo(BasketTotal);
+export default memo(BasketTotal);

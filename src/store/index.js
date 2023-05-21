@@ -1,4 +1,3 @@
-import {generateCode} from '../utils';
 import * as modules from './exports.js';
 
 /**

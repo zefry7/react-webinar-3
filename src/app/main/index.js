@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import {memo, useCallback, useEffect} from 'react';
 import Item from "../../components/item";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
@@ -11,15 +11,19 @@ function Main() {
 
   const store = useStore();
 
+  useEffect(() => {
+    store.actions.catalog.load();
+  }, []);
+
   const select = useSelector(state => ({
     list: state.catalog.list,
     amount: state.basket.amount,
     sum: state.basket.sum
-  }), 'Main');
+  }));
 
   const callbacks = {
     // Добавление в корзину
-    addToBasket: useCallback(code => store.actions.basket.addToBasket(code), [store]),
+    addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
   }
@@ -41,4 +45,4 @@ function Main() {
   );
 }
 
-export default React.memo(Main);
+export default memo(Main);

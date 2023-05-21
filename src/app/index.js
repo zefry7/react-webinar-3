@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useEffect, useState} from 'react';
+import {useCallback, useContext, useEffect, useState} from 'react';
 import Main from "./main";
 import Basket from "./basket";
 import useStore from "../store/use-store";
@@ -10,12 +10,12 @@ import useSelector from "../store/use-selector";
  */
 function App() {
 
-  const {name} = useSelector(state => ({name: state.modals.name}), 'App');
+  const activeModal = useSelector(state => state.modals.name);
 
   return (
     <>
       <Main/>
-      {name === 'basket' && <Basket/>}
+      {activeModal === 'basket' && <Basket/>}
     </>
   );
 }

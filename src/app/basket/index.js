@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import {memo, useCallback} from 'react';
 import ItemBasket from "../../components/item-basket";
 import List from "../../components/list";
 import ModalLayout from "../../components/modal-layout";
@@ -14,11 +14,11 @@ function Basket() {
     list: state.basket.list,
     amount: state.basket.amount,
     sum: state.basket.sum
-  }), 'Basket');
+  }));
 
   const callbacks = {
     // Удаление из корзины
-    removeFromBasket: useCallback(code => store.actions.basket.removeFromBasket(code), [store]),
+    removeFromBasket: useCallback(_id => store.actions.basket.removeFromBasket(_id), [store]),
     // Закрытие любой модалки
     closeModal: useCallback(() => store.actions.modals.close(), [store]),
   }
@@ -37,4 +37,4 @@ function Basket() {
   );
 }
 
-export default React.memo(Basket);
+export default memo(Basket);

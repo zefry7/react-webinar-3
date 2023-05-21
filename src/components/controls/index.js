@@ -1,4 +1,4 @@
-import React from "react";
+import {memo} from "react";
 import PropTypes from 'prop-types';
 import './style.css';
 
@@ -18,4 +18,4 @@ Controls.defaultProps = {
   onAdd: () => {}
 }
 
-export default React.memo(Controls);
+export default memo(Controls);

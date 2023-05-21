@@ -2,7 +2,12 @@ import useStore from "./use-store";
 import {useEffect, useLayoutEffect, useMemo, useState} from "react";
 import shallowequal from 'shallowequal';
 
-export default function useSelector(selector, desc = '') {
+/**
+ * Хук для выборки данных из store и отслеживания их изменения
+ * @param selector {Function}
+ * @return {*}
+ */
+export default function useSelector(selector) {
   const store = useStore();
 
   const [state, setState] = useState(() => selector(store.getState()));
@@ -11,11 +16,7 @@ export default function useSelector(selector, desc = '') {
     // Подписка. Возврат функции для отписки
     return store.subscribe(() => {
       const newState = selector(store.getState());
-      setState(prevState => {
-        const eq = shallowequal(prevState, newState);
-        console.log(eq ? `No changes - ${desc}` : `Changes - ${desc}`);
-        return eq ? prevState : newState
-      });
+      setState(prevState => shallowequal(prevState, newState) ? prevState : newState);
     });
   }, []); // Нет зависимостей - исполнится один раз
 
