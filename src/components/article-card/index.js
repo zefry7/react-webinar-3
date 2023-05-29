@@ -36,7 +36,7 @@ ArticleCard.propTypes = {
     description: PropTypes.string,
     madeIn: PropTypes.object,
     category: PropTypes.object,
-    edition: PropTypes.string,
+    edition: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     price: PropTypes.number
   }).isRequired,
   onAdd: PropTypes.func

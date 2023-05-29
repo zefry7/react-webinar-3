@@ -1,4 +1,4 @@
-import {memo, useCallback, useEffect} from 'react';
+import {memo, useCallback, useEffect, useMemo} from 'react';
 import Item from "../../components/item";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
@@ -6,6 +6,8 @@ import BasketTool from "../../components/basket-tool";
 import List from "../../components/list";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
+import Menu from "../../components/menu";
+import SideLayout from "../../components/side-layout";
 
 function Main() {
 
@@ -34,11 +36,20 @@ function Main() {
     ), [callbacks.addToBasket]),
   };
 
+  const options = {
+    menu: useMemo(() => ([
+      {key: 1, title: 'Главная', link: '/'},
+    ]), [])
+  };
+
   return (
     <PageLayout>
       <Head title='Магазин'/>
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
-                  sum={select.sum}/>
+      <SideLayout side='between'>
+        <Menu items={options.menu}/>
+        <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
+                    sum={select.sum}/>
+      </SideLayout>
       <List list={select.list} renderItem={renders.item}/>
     </PageLayout>
 
