@@ -1,7 +1,7 @@
 import {codeGenerator} from "../../utils";
 import StoreModule from "../module";
 
-class Catalog extends StoreModule {
+class CatalogState extends StoreModule {
 
   constructor(store, name) {
     super(store, name);
@@ -24,4 +24,4 @@ class Catalog extends StoreModule {
   }
 }
 
-export default Catalog;
+export default CatalogState;
