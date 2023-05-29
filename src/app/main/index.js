@@ -10,6 +10,7 @@ import Menu from "../../components/menu";
 import SideLayout from "../../components/side-layout";
 import Pagination from "../../components/pagination";
 import Spinner from "../../components/spinner";
+import Select from "../../components/select";
 
 function Main() {
 
@@ -21,6 +22,7 @@ function Main() {
 
   const select = useSelector(state => ({
     list: state.catalog.list,
+    params: state.catalog.params,
     page: state.catalog.params.page,
     limit: state.catalog.params.limit,
     count: state.catalog.count,
@@ -36,6 +38,8 @@ function Main() {
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
     // Пагинация
     onPaginate: useCallback(page => store.actions.catalog.setParams({page}), [store]),
+    // Сортировка
+    onSort: useCallback(sort => store.actions.catalog.setParams({sort}), [store]),
   }
 
   const renders = {
@@ -47,6 +51,12 @@ function Main() {
   const options = {
     menu: useMemo(() => ([
       {key: 1, title: 'Главная', link: '/'},
+    ]), []),
+    sort: useMemo(() => ([
+      {value:'order', title: 'По порядку'},
+      {value:'title.ru', title: 'По именованию'},
+      {value:'-price', title: 'Сначала дорогие'},
+      {value:'edition', title: 'Древние'},
     ]), [])
   };
 
@@ -57,6 +67,9 @@ function Main() {
         <Menu items={options.menu}/>
         <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
                     sum={select.sum}/>
+      </SideLayout>
+      <SideLayout padding='medium'>
+        <Select options={options.sort} onChange={callbacks.onSort}/>
       </SideLayout>
       <Spinner active={select.waiting}>
         <List list={select.list} renderItem={renders.item}/>
