@@ -11,6 +11,7 @@ import SideLayout from "../../components/side-layout";
 import Pagination from "../../components/pagination";
 import Spinner from "../../components/spinner";
 import Select from "../../components/select";
+import Input from "../../components/input";
 
 function Main() {
 
@@ -22,10 +23,11 @@ function Main() {
 
   const select = useSelector(state => ({
     list: state.catalog.list,
-    params: state.catalog.params,
     page: state.catalog.params.page,
     limit: state.catalog.params.limit,
     count: state.catalog.count,
+    sort: state.catalog.count,
+    query: state.catalog.params.query,
     waiting: state.catalog.waiting,
     amount: state.basket.amount,
     sum: state.basket.sum
@@ -40,6 +42,8 @@ function Main() {
     onPaginate: useCallback(page => store.actions.catalog.setParams({page}), [store]),
     // Сортировка
     onSort: useCallback(sort => store.actions.catalog.setParams({sort}), [store]),
+    // Поиск
+    onSearch: useCallback(query => store.actions.catalog.setParams({query, page: 1}), [store]),
   }
 
   const renders = {
@@ -69,7 +73,8 @@ function Main() {
                     sum={select.sum}/>
       </SideLayout>
       <SideLayout padding='medium'>
-        <Select options={options.sort} onChange={callbacks.onSort}/>
+        <Select options={options.sort} value={select.sort} onChange={callbacks.onSort}/>
+        <Input value={select.query} onChange={callbacks.onSearch} placeholder={'Поиск'} delay={1000}/>
       </SideLayout>
       <Spinner active={select.waiting}>
         <List list={select.list} renderItem={renders.item}/>

@@ -8,7 +8,8 @@ class CatalogState extends StoreModule {
       params: {
         page: 1,
         limit: 10,
-        sort: 'order'
+        sort: 'order',
+        query: ''
       },
       count: 0,
       waiting: false
@@ -29,7 +30,8 @@ class CatalogState extends StoreModule {
       limit: params.limit,
       skip: (params.page - 1) * params.limit,
       fields: 'items(*),count',
-      sort: params.sort
+      sort: params.sort,
+      'search[query]': params.query
     };
 
     const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
