@@ -8,17 +8,21 @@ import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import Menu from "../../components/menu";
 import SideLayout from "../../components/side-layout";
+import Pagination from "../../components/pagination";
 
 function Main() {
 
   const store = useStore();
 
   useEffect(() => {
-    store.actions.catalog.load();
+    store.actions.catalog.setParams({page: 1});
   }, []);
 
   const select = useSelector(state => ({
     list: state.catalog.list,
+    page: state.catalog.params.page,
+    limit: state.catalog.params.limit,
+    count: state.catalog.count,
     amount: state.basket.amount,
     sum: state.basket.sum
   }));
@@ -28,6 +32,8 @@ function Main() {
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
+    // Пагинация
+    onPaginate: useCallback(page => store.actions.catalog.setParams({page}), [store]),
   }
 
   const renders = {
@@ -51,6 +57,7 @@ function Main() {
                     sum={select.sum}/>
       </SideLayout>
       <List list={select.list} renderItem={renders.item}/>
+      <Pagination count={select.count} page={select.page} limit={select.limit} onChange={callbacks.onPaginate}/>
     </PageLayout>
 
   );
