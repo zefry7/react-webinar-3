@@ -8,6 +8,7 @@ import {useParams} from "react-router-dom";
 import ArticleCard from "../../components/article-card";
 import Menu from "../../components/menu";
 import SideLayout from "../../components/side-layout";
+import Spinner from "../../components/spinner";
 
 function Article() {
 
@@ -22,7 +23,8 @@ function Article() {
   const select = useSelector(state => ({
     article: state.article.data,
     amount: state.basket.amount,
-    sum: state.basket.sum
+    sum: state.basket.sum,
+    waiting: state.article.waiting,
   }));
 
   const callbacks = {
@@ -45,9 +47,10 @@ function Article() {
         <Menu items={options.menu}/>
         <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
       </SideLayout>
-      <ArticleCard article={select.article} onAdd={callbacks.addToBasket}/>
+      <Spinner active={select.waiting}>
+        <ArticleCard article={select.article} onAdd={callbacks.addToBasket}/>
+      </Spinner>
     </PageLayout>
-
   );
 }
 

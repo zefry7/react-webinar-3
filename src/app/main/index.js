@@ -9,6 +9,7 @@ import useSelector from "../../store/use-selector";
 import Menu from "../../components/menu";
 import SideLayout from "../../components/side-layout";
 import Pagination from "../../components/pagination";
+import Spinner from "../../components/spinner";
 
 function Main() {
 
@@ -23,6 +24,7 @@ function Main() {
     page: state.catalog.params.page,
     limit: state.catalog.params.limit,
     count: state.catalog.count,
+    waiting: state.catalog.waiting,
     amount: state.basket.amount,
     sum: state.basket.sum
   }));
@@ -56,8 +58,10 @@ function Main() {
         <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
                     sum={select.sum}/>
       </SideLayout>
-      <List list={select.list} renderItem={renders.item}/>
-      <Pagination count={select.count} page={select.page} limit={select.limit} onChange={callbacks.onPaginate}/>
+      <Spinner active={select.waiting}>
+        <List list={select.list} renderItem={renders.item}/>
+        <Pagination count={select.count} page={select.page} limit={select.limit} onChange={callbacks.onPaginate}/>
+      </Spinner>
     </PageLayout>
 
   );
