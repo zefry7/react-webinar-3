@@ -8,6 +8,8 @@ import Head from "../../components/head";
 import Navigation from "../../containers/navigation";
 import Spinner from "../../components/spinner";
 import ArticleCard from "../../components/article-card";
+import LocaleSelect from "../../containers/locale-select";
+import useTranslate from "../../hooks/use-translate";
 
 function Article() {
 
@@ -24,6 +26,8 @@ function Article() {
     waiting: state.article.waiting,
   }));
 
+  const {t} = useTranslate();
+
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
@@ -31,10 +35,12 @@ function Article() {
 
   return (
     <PageLayout>
-      <Head title={select.article.title}/>
+      <Head title={select.article.title}>
+        <LocaleSelect/>
+      </Head>
       <Navigation/>
       <Spinner active={select.waiting}>
-        <ArticleCard article={select.article} onAdd={callbacks.addToBasket}/>
+        <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
       </Spinner>
     </PageLayout>
   );

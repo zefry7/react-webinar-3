@@ -20,8 +20,8 @@ function Item(props){
         <Link to={props.link}>{props.item.title}</Link>
       </div>
       <div className={cn('actions')}>
-        <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
-        <button onClick={callbacks.onAdd}>Добавить</button>
+        <div className={cn('price')}>{numberFormat(props.item.price)} {props.labelCurr}</div>
+        <button onClick={callbacks.onAdd}>{props.labelAdd}</button>
       </div>
     </div>
   );
@@ -35,10 +35,14 @@ Item.propTypes = {
   }).isRequired,
   link: PropTypes.string,
   onAdd: PropTypes.func,
+  labelCurr: PropTypes.string,
+  labelAdd: PropTypes.string
 };
 
 Item.defaultProps = {
   onAdd: () => {},
+  labelCurr: '₽',
+  labelAdd: 'Добавить'
 }
 
 export default memo(Item);

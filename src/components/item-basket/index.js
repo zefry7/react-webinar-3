@@ -23,9 +23,9 @@ function ItemBasket(props) {
           : props.item.title}
       </div>
       <div className={cn('right')}>
-        <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
-        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>
-        <div className={cn('cell')}><button onClick={callbacks.onRemove}>Удалить</button></div>
+        <div className={cn('cell')}>{numberFormat(props.item.price)} {props.labelCurr}</div>
+        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} {props.labelUnit}</div>
+        <div className={cn('cell')}><button onClick={callbacks.onRemove}>{props.labelDelete}</button></div>
       </div>
     </div>
   )
@@ -39,12 +39,18 @@ ItemBasket.propTypes = {
     amount: PropTypes.number
   }).isRequired,
   link: PropTypes.string,
-  onLink: propTypes.func,
-  onRemove: propTypes.func,
+  onLink: PropTypes.func,
+  onRemove: PropTypes.func,
+  labelCurr: PropTypes.string,
+  labelDelete: PropTypes.string,
+  labelUnit: PropTypes.string,
 }
 
 ItemBasket.defaultProps = {
   onRemove: () => {},
+  labelCurr: '₽',
+  labelUnit: 'шт',
+  labelDelete: 'Удалить',
 }
 
 export default memo(ItemBasket);

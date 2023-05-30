@@ -2,18 +2,11 @@ import {memo, useCallback, useMemo} from "react";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import Select from "../../components/select";
+import useTranslate from "../../hooks/use-translate";
 
 function LocaleSelect() {
 
-  const store = useStore();
-
-  const select = useSelector(state => ({
-    lang: state.locale.lang
-  }));
-
-  const callbacks = {
-    setLang: useCallback(lang => store.actions.locale.setLang(lang), [])
-  };
+  const {lang, setLang} = useTranslate();
 
   const options = {
     lang: useMemo(() => ([
@@ -23,7 +16,7 @@ function LocaleSelect() {
   };
 
   return (
-    <Select onChange={callbacks.setLang} value={select.lang} options={options.lang}/>
+    <Select onChange={setLang} value={lang} options={options.lang}/>
   );
 }
 

@@ -5,6 +5,7 @@ import Item from "../../components/item";
 import List from "../../components/list";
 import Pagination from "../../components/pagination";
 import Spinner from "../../components/spinner";
+import useTranslate from "../../hooks/use-translate";
 
 function CatalogList() {
   const store = useStore();
@@ -28,10 +29,12 @@ function CatalogList() {
     }, [select.limit, select.sort, select.query])
   }
 
+  const {t} = useTranslate();
+
   const renders = {
     item: useCallback(item => (
-      <Item item={item} onAdd={callbacks.addToBasket} link={`/articles/${item._id}`}/>
-    ), [callbacks.addToBasket]),
+      <Item item={item} onAdd={callbacks.addToBasket} link={`/articles/${item._id}`} labelAdd={t('article.add')}/>
+    ), [callbacks.addToBasket, t]),
   };
 
   return (

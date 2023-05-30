@@ -6,6 +6,8 @@ import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
 import CatalogFilter from "../../containers/catalog-filter";
 import CatalogList from "../../containers/catalog-list";
+import LocaleSelect from "../../containers/locale-select";
+import useTranslate from "../../hooks/use-translate";
 
 function Main() {
 
@@ -15,9 +17,13 @@ function Main() {
     store.actions.catalog.initParams();
   }, [], true);
 
+  const {t} = useTranslate();
+
   return (
     <PageLayout>
-      <Head title='Магазин'/>
+      <Head title={t('title')}>
+        <LocaleSelect/>
+      </Head>
       <Navigation />
       <CatalogFilter/>
       <CatalogList/>

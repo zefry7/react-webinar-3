@@ -1,7 +1,14 @@
 import StoreModule from "../module";
 
+/**
+ * Состояние каталога
+ */
 class CatalogState extends StoreModule {
 
+  /**
+   * Начальное состояние
+   * @return {Object}
+   */
   initState() {
     return {
       list: [],
@@ -16,7 +23,13 @@ class CatalogState extends StoreModule {
     }
   }
 
-  async initParams(newParams = {}){
+  /**
+   * Инициализация параметров.
+   * Восстановление из адреса
+   * @param newParams
+   * @return {Promise<void>}
+   */
+  async initParams(newParams = {}) {
     const urlParams = new URLSearchParams(window.location.search);
     let validParams = {};
     if (urlParams.has('page')) validParams.page = Number(urlParams.get('page')) || 1;
@@ -26,6 +39,11 @@ class CatalogState extends StoreModule {
     await this.setParams({...this.initState().params, ...validParams, ...newParams}, true);
   }
 
+  /**
+   * Сброс параметров к начальным
+   * @param newParams
+   * @return {Promise<void>}
+   */
   async resetParams(newParams = {}) {
     // Итоговые параметры из начальных, из URL и из переданных явно
     const params = {...this.initState().params, ...newParams};
@@ -33,6 +51,12 @@ class CatalogState extends StoreModule {
     await this.setParams(params);
   }
 
+  /**
+   * Установка параметров и загрузка списка товаров
+   * @param newParams
+   * @param replaceHistory {Boolean} Заменить адрес (true) или сделаит новую запис в истории браузера (false)
+   * @returns {Promise<void>}
+   */
   async setParams(newParams = {}, replaceHistory = false) {
     const params = {...this.getState().params, ...newParams};
 
@@ -47,9 +71,9 @@ class CatalogState extends StoreModule {
     let urlSearch = new URLSearchParams(params).toString();
     const url = window.location.pathname + '?' + urlSearch + window.location.hash;
     if (replaceHistory) {
-      window.history.replaceState({},'', url);
+      window.history.replaceState({}, '', url);
     } else {
-      window.history.pushState({},'', url);
+      window.history.pushState({}, '', url);
     }
 
     const apiParams = {
@@ -67,7 +91,7 @@ class CatalogState extends StoreModule {
       list: json.result.items,
       count: json.result.count,
       waiting: false
-    }, 'Загружены товары из АПИ');
+    }, 'Загружен список товаров из АПИ');
   }
 }
 

@@ -4,6 +4,7 @@ import useSelector from "../../store/use-selector";
 import Select from "../../components/select";
 import Input from "../../components/input";
 import SideLayout from "../../components/side-layout";
+import useTranslate from "../../hooks/use-translate";
 
 function CatalogFilter() {
 
@@ -13,6 +14,8 @@ function CatalogFilter() {
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
   }));
+
+  const {t} = useTranslate();
 
   const callbacks = {
     // Сортировка
@@ -37,7 +40,7 @@ function CatalogFilter() {
       <Select options={options.sort} value={select.sort} onChange={callbacks.onSort}/>
       <Input value={select.query} onChange={callbacks.onSearch} placeholder={'Поиск'}
              delay={1000}/>
-      <button onClick={callbacks.onReset}>Сброс</button>
+      <button onClick={callbacks.onReset}>{t('filter.reset')}</button>
     </SideLayout>
   )
 }

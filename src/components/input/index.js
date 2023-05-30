@@ -1,5 +1,5 @@
 import {memo, useCallback, useLayoutEffect, useState} from 'react';
-import propTypes from "prop-types";
+import PropTypes from "prop-types";
 import {cn as bem} from '@bem-react/classname';
 import debounce from 'lodash.debounce';
 
@@ -37,12 +37,12 @@ function Input(props) {
 }
 
 Input.propTypes = {
-  value: propTypes.string,
-  name: propTypes.string,
-  type: propTypes.string,
-  placeholder: propTypes.string,
-  onChange: propTypes.func,
-  theme: propTypes.string,
+  value: PropTypes.string,
+  name: PropTypes.string,
+  type: PropTypes.string,
+  placeholder: PropTypes.string,
+  onChange: PropTypes.func,
+  theme: PropTypes.string,
 }
 
 Input.defaultProps = {
