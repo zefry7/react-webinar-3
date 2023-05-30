@@ -27,7 +27,7 @@ function Input(props) {
   const cn = bem('Input');
   return (
     <input
-      className={cn()}
+      className={cn({theme: props.theme})}
       value={value}
       type={props.type}
       placeholder={props.placeholder}
@@ -42,11 +42,13 @@ Input.propTypes = {
   type: propTypes.string,
   placeholder: propTypes.string,
   onChange: propTypes.func,
+  theme: propTypes.string,
 }
 
 Input.defaultProps = {
   onChange: () => {},
   type: 'text',
+  theme: ''
 }
 
 export default memo(Input);

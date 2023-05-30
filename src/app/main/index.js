@@ -12,21 +12,22 @@ import Pagination from "../../components/pagination";
 import Spinner from "../../components/spinner";
 import Select from "../../components/select";
 import Input from "../../components/input";
+import useInit from "../../hooks/use-init";
 
 function Main() {
 
   const store = useStore();
 
-  useEffect(() => {
-    store.actions.catalog.setParams({page: 1});
-  }, []);
+  useInit(() => {
+    store.actions.catalog.initParams();
+  }, [], true);
 
   const select = useSelector(state => ({
     list: state.catalog.list,
     page: state.catalog.params.page,
     limit: state.catalog.params.limit,
     count: state.catalog.count,
-    sort: state.catalog.count,
+    sort: state.catalog.params.sort,
     query: state.catalog.params.query,
     waiting: state.catalog.waiting,
     amount: state.basket.amount,
@@ -44,6 +45,17 @@ function Main() {
     onSort: useCallback(sort => store.actions.catalog.setParams({sort}), [store]),
     // Поиск
     onSearch: useCallback(query => store.actions.catalog.setParams({query, page: 1}), [store]),
+    // Сброс
+    onReset: useCallback(() => store.actions.catalog.resetParams(), [store]),
+    // генератор ссылки для пагинатора
+    makePaginatorLink: useCallback((page) => {
+      return `?${new URLSearchParams({
+        page,
+        limit: select.limit,
+        sort: select.sort,
+        query: select.query
+      })}`;
+    }, [select.limit, select.sort, select.query])
   }
 
   const renders = {
@@ -57,10 +69,10 @@ function Main() {
       {key: 1, title: 'Главная', link: '/'},
     ]), []),
     sort: useMemo(() => ([
-      {value:'order', title: 'По порядку'},
-      {value:'title.ru', title: 'По именованию'},
-      {value:'-price', title: 'Сначала дорогие'},
-      {value:'edition', title: 'Древние'},
+      {value: 'order', title: 'По порядку'},
+      {value: 'title.ru', title: 'По именованию'},
+      {value: '-price', title: 'Сначала дорогие'},
+      {value: 'edition', title: 'Древние'},
     ]), [])
   };
 
@@ -69,19 +81,20 @@ function Main() {
       <Head title='Магазин'/>
       <SideLayout side='between'>
         <Menu items={options.menu}/>
-        <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
-                    sum={select.sum}/>
+        <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
       </SideLayout>
       <SideLayout padding='medium'>
         <Select options={options.sort} value={select.sort} onChange={callbacks.onSort}/>
-        <Input value={select.query} onChange={callbacks.onSearch} placeholder={'Поиск'} delay={1000}/>
+        <Input value={select.query} onChange={callbacks.onSearch} placeholder={'Поиск'}
+               delay={1000}/>
+        <button onClick={callbacks.onReset}>Сброс</button>
       </SideLayout>
       <Spinner active={select.waiting}>
         <List list={select.list} renderItem={renders.item}/>
-        <Pagination count={select.count} page={select.page} limit={select.limit} onChange={callbacks.onPaginate}/>
+        <Pagination count={select.count} page={select.page} limit={select.limit}
+                    onChange={callbacks.onPaginate} makeLink={callbacks.makePaginatorLink}/>
       </Spinner>
     </PageLayout>
-
   );
 }
 

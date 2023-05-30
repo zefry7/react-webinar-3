@@ -27,6 +27,12 @@ function Pagination(props) {
   // Последняя страница
   if (right < length) items.push(length);
 
+  const onClickHandler = (number) => (e) => {
+    if (props.onChange) {
+      e.preventDefault();
+      props.onChange(number);
+    }
+  }
 
   const cn = bem('Pagination');
   return (
@@ -34,9 +40,14 @@ function Pagination(props) {
       {items.map((number, index) => (
         <li key={index}
             className={cn('item', {active: number === props.page, split: !number})}
-            onClick={() => props.onChange(number)}
-        >
-          {number || '...'}
+            onClick={onClickHandler(number)}>
+          {number
+            ? (props.makeLink
+                ? <a href={props.makeLink(number)}>{number}</a>
+                : number
+            )
+            : '...'
+          }
         </li>
       ))}
     </ul>
@@ -49,6 +60,7 @@ Pagination.propTypes = {
   count: PropTypes.number,
   indent: PropTypes.number,
   onChange: PropTypes.func,
+  makeLink: PropTypes.func,
 }
 
 Pagination.defaultProps = {
@@ -56,7 +68,6 @@ Pagination.defaultProps = {
   limit: 10,
   count: 1000,
   indent: 1,
-  onChange: () => {},
 }
 
 export default memo(Pagination);

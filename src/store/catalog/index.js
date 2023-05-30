@@ -16,7 +16,24 @@ class CatalogState extends StoreModule {
     }
   }
 
-  async setParams(newParams = {}) {
+  async initParams(newParams = {}){
+    const urlParams = new URLSearchParams(window.location.search);
+    let validParams = {};
+    if (urlParams.has('page')) validParams.page = Number(urlParams.get('page')) || 1;
+    if (urlParams.has('limit')) validParams.limit = Math.min(Number(urlParams.get('limit')) || 10, 50);
+    if (urlParams.has('sort')) validParams.sort = urlParams.get('sort');
+    if (urlParams.has('query')) validParams.query = urlParams.get('query');
+    await this.setParams({...this.initState().params, ...validParams, ...newParams}, true);
+  }
+
+  async resetParams(newParams = {}) {
+    // Итоговые параметры из начальных, из URL и из переданных явно
+    const params = {...this.initState().params, ...newParams};
+    // Установка параметров и загрузка данных
+    await this.setParams(params);
+  }
+
+  async setParams(newParams = {}, replaceHistory = false) {
     const params = {...this.getState().params, ...newParams};
 
     // Установка новых параметров и признака загрузки
@@ -25,6 +42,15 @@ class CatalogState extends StoreModule {
       params,
       waiting: true
     }, 'Установлены параметры каталога');
+
+    // Сохранить параметры в адрес страницы
+    let urlSearch = new URLSearchParams(params).toString();
+    const url = window.location.pathname + '?' + urlSearch + window.location.hash;
+    if (replaceHistory) {
+      window.history.replaceState({},'', url);
+    } else {
+      window.history.pushState({},'', url);
+    }
 
     const apiParams = {
       limit: params.limit,

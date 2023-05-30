@@ -19,12 +19,21 @@
   line-height: 18px;
 }
 
+.Pagination-item a,
+.Pagination-item a:hover,
+.Pagination-item a:active{
+  text-decoration: none;
+  color: black;
+}
+
 .Pagination-item:hover{
   background: #E1E1E1;
 }
 
 .Pagination-item_active,
-.Pagination-item_active:hover{
+.Pagination-item_active:hover,
+.Pagination-item_active a,
+.Pagination-item_active a:hover{
   background: #0087E9;
   color: #fff;
 }
@@ -35,3 +44,5 @@
   cursor: default;
   color: #CCCCCC;
 }
+
+

@@ -1,4 +1,4 @@
-import {memo, useCallback, useEffect, useMemo} from 'react';
+import {memo, useCallback, useMemo} from 'react';
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
 import BasketTool from "../../components/basket-tool";
@@ -9,6 +9,7 @@ import ArticleCard from "../../components/article-card";
 import Menu from "../../components/menu";
 import SideLayout from "../../components/side-layout";
 import Spinner from "../../components/spinner";
+import useInit from "../../hooks/use-init";
 
 function Article() {
 
@@ -16,7 +17,7 @@ function Article() {
 
   const params = useParams();
 
-  useEffect(() => {
+  useInit(() => {
     store.actions.article.load(params.id);
   }, [params.id]);
 
