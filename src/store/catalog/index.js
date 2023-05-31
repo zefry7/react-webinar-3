@@ -1,7 +1,7 @@
 import StoreModule from "../module";
 
 /**
- * Состояние каталога
+ * Состояние каталога - параметры фильтра исписок товара
  */
 class CatalogState extends StoreModule {
 
@@ -26,7 +26,7 @@ class CatalogState extends StoreModule {
   /**
    * Инициализация параметров.
    * Восстановление из адреса
-   * @param newParams
+   * @param [newParams] {Object} Новые параметры
    * @return {Promise<void>}
    */
   async initParams(newParams = {}) {
@@ -41,7 +41,7 @@ class CatalogState extends StoreModule {
 
   /**
    * Сброс параметров к начальным
-   * @param newParams
+   * @param [newParams] {Object} Новые параметры
    * @return {Promise<void>}
    */
   async resetParams(newParams = {}) {
@@ -53,8 +53,8 @@ class CatalogState extends StoreModule {
 
   /**
    * Установка параметров и загрузка списка товаров
-   * @param newParams
-   * @param replaceHistory {Boolean} Заменить адрес (true) или сделаит новую запис в истории браузера (false)
+   * @param [newParams] {Object} Новые параметры
+   * @param [replaceHistory] {Boolean} Заменить адрес (true) или новая запись в истории браузера (false)
    * @returns {Promise<void>}
    */
   async setParams(newParams = {}, replaceHistory = false) {

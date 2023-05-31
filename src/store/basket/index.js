@@ -1,5 +1,8 @@
 import StoreModule from "../module";
 
+/**
+ * Покупательская корзина
+ */
 class BasketState extends StoreModule {
 
   initState() {
@@ -12,7 +15,7 @@ class BasketState extends StoreModule {
 
   /**
    * Добавление товара в корзину
-   * @param _id Код товара
+   * @param _id {String} Код товара
    */
   async addToBasket(_id) {
     let sum = 0;

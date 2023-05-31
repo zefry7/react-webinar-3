@@ -1,14 +1,22 @@
 import StoreModule from "../module";
 
+/**
+ * Детальная ифнормация о товаре для страницы товара
+ */
 class ArticleState extends StoreModule {
 
   initState() {
     return {
       data: {},
-      waiting: false
+      waiting: false // признак ожидания загрузки
     }
   }
 
+  /**
+   * Загрузка товаров по id
+   * @param id {String}
+   * @return {Promise<void>}
+   */
   async load(id) {
     // Сброс текущего товара и установка признака ожидания загрузки
     this.setState({
