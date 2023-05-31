@@ -1,10 +1,10 @@
 import {memo, useCallback, useMemo} from "react";
-import useStore from "../../store/use-store";
-import useSelector from "../../store/use-selector";
+import useTranslate from "../../hooks/use-translate";
+import useStore from "../../hooks/use-store";
+import useSelector from "../../hooks/use-selector";
 import Select from "../../components/select";
 import Input from "../../components/input";
 import SideLayout from "../../components/side-layout";
-import useTranslate from "../../hooks/use-translate";
 
 function CatalogFilter() {
 
@@ -14,8 +14,6 @@ function CatalogFilter() {
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
   }));
-
-  const {t} = useTranslate();
 
   const callbacks = {
     // Сортировка
@@ -34,6 +32,8 @@ function CatalogFilter() {
       {value: 'edition', title: 'Древние'},
     ]), [])
   };
+
+  const {t} = useTranslate();
 
   return (
     <SideLayout padding='medium'>

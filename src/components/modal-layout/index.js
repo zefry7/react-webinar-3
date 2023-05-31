@@ -22,7 +22,9 @@ function ModalLayout(props) {
     });
     // Следим за изменениями размеров layout
     resizeObserver.observe(layout.current);
+    document.body.style.overflow = 'hidden';
     return () => {
+      document.body.style.overflow = 'auto';
       resizeObserver.disconnect();
     }
   }, []);

@@ -1,11 +1,10 @@
 import {memo, useCallback, useMemo} from "react";
-import useStore from "../../store/use-store";
-import useSelector from "../../store/use-selector";
+import useStore from "../../hooks/use-store";
+import useSelector from "../../hooks/use-selector";
+import useTranslate from "../../hooks/use-translate";
 import Menu from "../../components/menu";
 import BasketTool from "../../components/basket-tool";
 import SideLayout from "../../components/side-layout";
-import translate from "../../i18n/translate";
-import useTranslate from "../../hooks/use-translate";
 
 function Navigation() {
   const store = useStore();
@@ -16,9 +15,6 @@ function Navigation() {
     lang: state.locale.lang
   }));
 
-  // Функция для локализации текстов
-  const {t} = useTranslate();
-
   const callbacks = {
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
@@ -27,6 +23,9 @@ function Navigation() {
       if (item.key === 1) store.actions.catalog.resetParams();
     }, [store])
   }
+
+  // Функция для локализации текстов
+  const {t} = useTranslate();
 
   const options = {
     menu: useMemo(() => ([
