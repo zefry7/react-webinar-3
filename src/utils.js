@@ -37,6 +37,7 @@ export const generateCode1 = (function (start = 0) {
       yield ++start;
     }
   }
+
   const gen = realGenerator(start);
   return () => gen.next().value;
 }());

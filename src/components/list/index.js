@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Item from "../item";
 import './style.css';
 
-function List({list, onDeleteItem, onSelectItem}){
+function List({list, onDeleteItem, onSelectItem}) {
   return (
     <div className='List'>{
       list.map(item =>
@@ -24,8 +24,10 @@ List.propTypes = {
 };
 
 List.defaultProps = {
-  onDeleteItem: () => {},
-  onSelectItem: () => {},
+  onDeleteItem: () => {
+  },
+  onSelectItem: () => {
+  },
 }
 
 export default React.memo(List);

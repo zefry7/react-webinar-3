@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import {plural} from "../../utils";
 import './style.css';
 
-function Item(props){
+function Item(props) {
 
   // Счётчик выделений
   const [count, setCount] = useState(0);
@@ -18,6 +18,7 @@ function Item(props){
     onDelete: (e) => {
       e.stopPropagation();
       props.onDelete(props.item.code);
+
     }
   }
 
@@ -26,7 +27,11 @@ function Item(props){
          onClick={callbacks.onClick}>
       <div className='Item-code'>{props.item.code}</div>
       <div className='Item-title'>
-        {props.item.title} {count ? ` | Выделяли ${count} ${plural(count, {one: 'раз', few: 'раза', many: 'раз'})}` : ''}
+        {props.item.title} {count ? ` | Выделяли ${count} ${plural(count, {
+        one: 'раз',
+        few: 'раза',
+        many: 'раз'
+      })}` : ''}
       </div>
       <div className='Item-actions'>
         <button onClick={callbacks.onDelete}>
@@ -49,8 +54,10 @@ Item.propTypes = {
 };
 
 Item.defaultProps = {
-  onDelete: () => {},
-  onSelect: () => {},
+  onDelete: () => {
+  },
+  onSelect: () => {
+  },
 }
 
 export default React.memo(Item);
