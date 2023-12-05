@@ -4,7 +4,7 @@ import {cn as bem} from '@bem-react/classname';
 import {numberFormat} from "../../utils";
 import './style.css';
 
-function Item(props){
+function Item(props) {
 
   const cn = bem('Item');
 

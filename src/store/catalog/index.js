@@ -18,8 +18,8 @@ class Catalog extends StoreModule {
     const response = await fetch('/api/v1/articles');
     const json = await response.json();
     this.setState({
-       ...this.getState(),
-       list: json.result.items
+      ...this.getState(),
+      list: json.result.items
     }, 'Загружены товары из АПИ');
   }
 }

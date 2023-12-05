@@ -50,8 +50,7 @@ ModalLayout.propTypes = {
 
 ModalLayout.defaultProps = {
   title: 'Модалка',
-  onClose: () => {
-  }
+  onClose: () => {}
 };
 
 export default memo(ModalLayout);

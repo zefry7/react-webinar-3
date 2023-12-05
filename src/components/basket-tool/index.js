@@ -11,7 +11,11 @@ function BasketTool({sum, amount, onOpen}) {
       <span className={cn('label')}>В корзине:</span>
       <span className={cn('total')}>
         {amount
-          ? `${amount} ${plural(amount, {one:'товар', few:'товара', many:'товаров'})} / ${numberFormat(sum)} ₽`
+          ? `${amount} ${plural(amount, {
+            one: 'товар',
+            few: 'товара',
+            many: 'товаров'
+          })} / ${numberFormat(sum)} ₽`
           : `пусто`
         }
       </span>
