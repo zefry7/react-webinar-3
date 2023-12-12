@@ -7,7 +7,7 @@ import Article from "./article";
 
 /**
  * Приложение
- * @returns {React.ReactElement}
+ * Маршрутизация по страницам и модалкам
  */
 function App() {
 

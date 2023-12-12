@@ -6,6 +6,9 @@ import Select from "../../components/select";
 import Input from "../../components/input";
 import SideLayout from "../../components/side-layout";
 
+/**
+ * Контейнер со всеми фильтрами каталога
+ */
 function CatalogFilter() {
 
   const store = useStore();

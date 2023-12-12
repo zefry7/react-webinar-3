@@ -11,6 +11,9 @@ import Spinner from "../../components/spinner";
 import ArticleCard from "../../components/article-card";
 import LocaleSelect from "../../containers/locale-select";
 
+/**
+ * Страница товара с первичной загрузкой товара по id из url адреса
+ */
 function Article() {
   const store = useStore();
 

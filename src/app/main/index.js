@@ -9,6 +9,9 @@ import CatalogFilter from "../../containers/catalog-filter";
 import CatalogList from "../../containers/catalog-list";
 import LocaleSelect from "../../containers/locale-select";
 
+/**
+ * Главная страница - первичная загрузка каталога
+ */
 function Main() {
 
   const store = useStore();
@@ -24,7 +27,7 @@ function Main() {
       <Head title={t('title')}>
         <LocaleSelect/>
       </Head>
-      <Navigation />
+      <Navigation/>
       <CatalogFilter/>
       <CatalogList/>
     </PageLayout>

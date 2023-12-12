@@ -25,7 +25,9 @@ function ItemBasket(props) {
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(props.item.price)} {props.labelCurr}</div>
         <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} {props.labelUnit}</div>
-        <div className={cn('cell')}><button onClick={callbacks.onRemove}>{props.labelDelete}</button></div>
+        <div className={cn('cell')}>
+          <button onClick={callbacks.onRemove}>{props.labelDelete}</button>
+        </div>
       </div>
     </div>
   )
@@ -47,7 +49,8 @@ ItemBasket.propTypes = {
 }
 
 ItemBasket.defaultProps = {
-  onRemove: () => {},
+  onRemove: () => {
+  },
   labelCurr: '₽',
   labelUnit: 'шт',
   labelDelete: 'Удалить',

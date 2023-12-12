@@ -8,6 +8,9 @@ import List from "../../components/list";
 import ModalLayout from "../../components/modal-layout";
 import BasketTotal from "../../components/basket-total";
 
+/**
+ * Корзина в модальном окне
+ */
 function Basket() {
 
   const store = useStore();

@@ -1,7 +1,7 @@
 import StoreModule from "../module";
 
 /**
- * Состояние каталога - параметры фильтра исписок товара
+ * Состояние каталога - параметры фильтра и список товара
  */
 class CatalogState extends StoreModule {
 
