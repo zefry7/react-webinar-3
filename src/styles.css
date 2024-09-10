@@ -54,6 +54,12 @@ body {
   padding: 20px 10px;
 }
 
+.Item-count {
+  min-width: max-content;
+  margin: 0;
+  padding: 20px 10px;
+}
+
 .Item-actions {
   display: flex;
   justify-content: flex-end;
