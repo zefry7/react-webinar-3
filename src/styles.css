@@ -5,6 +5,10 @@ body {
   font-family: sans-serif;
 }
 
+button {
+  cursor: pointer;
+}
+
 .App {
   max-width: 1024px;
   min-height: 100vh;
@@ -38,6 +42,7 @@ body {
   display: flex;
   justify-content: flex-start;
   transition: background-color 1s;
+  cursor: pointer;
 }
 
 .Item_selected {
@@ -58,6 +63,7 @@ body {
   min-width: max-content;
   margin: 0;
   padding: 20px 10px;
+  margin-right: auto;
 }
 
 .Item-actions {

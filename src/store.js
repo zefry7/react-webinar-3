@@ -66,8 +66,6 @@ class Store {
    * @param code
    */
   selectItem(code) {
-    console.log(code);
-    
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
@@ -75,7 +73,7 @@ class Store {
           item.selected = !item.selected;
           if (!item.countSelect) {
             item.countSelect = 1
-          } else if(item.selected) {
+          } else if (item.selected) {
             item.countSelect++
           }
         } else {

@@ -10,6 +10,14 @@ import './styles.css';
 function App({ store }) {
   const list = store.getState().list;
 
+  function showCountSelectText(count) {
+    if ((count % 10) <= 4 && (count % 10) >= 2 && (count % 100) != 12 && (count % 100) != 13 && (count % 100) != 14) {
+      return `| Выделяли ${count} раза`
+    } else {
+      return `| Выделяли ${count} раз`
+    }
+  }
+
   return (
     <div className="App">
       <div className="App-head">
@@ -27,10 +35,7 @@ function App({ store }) {
                 onClick={() => store.selectItem(item.code)}
               >
                 <div className="Item-code">{item.code}</div>
-                <div className="Item-title">{item.title}</div>
-                {item.countSelect &&
-                  <p className='Item-count'>Выделяли {item.countSelect} раз</p>
-                }
+                <div className="Item-title">{item.title} {item.countSelect && showCountSelectText(item.countSelect)}</div>
                 <div className="Item-actions">
                   <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
                 </div>
