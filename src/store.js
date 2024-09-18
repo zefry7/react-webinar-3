@@ -1,3 +1,4 @@
+import card from './components/card';
 import { generateCode } from './utils';
 
 /**
@@ -43,44 +44,51 @@ class Store {
   /**
    * Добавление новой записи
    */
-  addItem() {
+  addItemInCard(item) {
+    let it = this.state.card.filter((v) => v.code == item.code)[0]
+    if (it == null) {
+      this.setState({
+        ...this.state,
+        card: [...this.state.card, { ...item, countItem: 1 }],
+      });
+    } else {
+      this.setState({
+        ...this.state,
+        card: [...this.state.card.filter(v => v.code != it.code), { ...it, countItem: it.countItem + 1 }],
+      });
+    }
+  }
+
+  addInSumCard(price) {
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: generateCode(), title: 'Новая запись' }],
-    });
+      sumCard: this.state.sumCard + price
+    })
+  }
+
+  subInSumCard(price) {
+    this.setState({
+      ...this.state,
+      sumCard: this.state.sumCard - price
+    })
+  }
+
+  changeCountCard() {
+    this.setState({
+      ...this.state,
+      countCard: this.state.card.length
+    })
   }
 
   /**
    * Удаление записи по коду
    * @param code
    */
-  deleteItem(code) {
+  deleteItemInCard(code) {
     this.setState({
       ...this.state,
       // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code),
-    });
-  }
-
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? { ...item, selected: false } : item;
-      }),
+      card: this.state.card.filter(item => item.code !== code),
     });
   }
 }

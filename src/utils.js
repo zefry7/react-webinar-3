@@ -50,3 +50,13 @@ export const generateCode1 = (function (start = 0) {
 export function generateCode2() {
   return generateCode2.value ? ++generateCode2.value : (generateCode2.value = 1);
 }
+
+export function convertingNumbeInPrice(value) {
+  return [...value.toString()].map((v, i, arr) => {
+    if ((arr.length - i) % 3 == 0) {
+      return " " + v
+    } else {
+      return v
+    }
+  }).join("")
+}
