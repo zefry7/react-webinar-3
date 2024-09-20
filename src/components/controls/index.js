@@ -1,15 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
-import { convertingNumbeInPrice, plural } from "../../utils"
+import { plural } from "../../utils"
 
-function Controls({ onClosedCard = () => {}, sumCard = 0, card = [], countCard = 0 }) {
+function Controls({ onClosedCard = () => {}, sumCardString = 0, card = [], countCard = 0 }) {
   return (
     <div className="Controls">
       <div className='Controls-label'>В корзине: </div>
       {card.length == 0
         ? <div className='Controls-count'>пусто</div>
-        : <div className='Controls-count'>{countCard + " " + plural(countCard, { one: "товар", few: "товара", many: 'товаров' }) + " / " + convertingNumbeInPrice(sumCard) + " ₽"}</div>
+        : <div className='Controls-count'>{countCard + " " + plural(countCard, { one: "товар", few: "товара", many: 'товаров' }) + " / " + sumCardString + " ₽"}</div>
       }
       <button onClick={onClosedCard}>Перейти</button>
     </div>
@@ -18,7 +18,7 @@ function Controls({ onClosedCard = () => {}, sumCard = 0, card = [], countCard =
 
 Controls.propTypes = {
   onClosedCard: PropTypes.func,
-  sumCard: PropTypes.number,
+  sumCardString: PropTypes.string,
   card: PropTypes.arrayOf(
     PropTypes.shape({
       code: PropTypes.number,

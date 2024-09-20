@@ -3,7 +3,9 @@ import List from './components/list';
 import Controls from './components/controls';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
-import Card from './components/card';
+import Modal from './components/modal';
+import { convertingNumbeInPrice } from "./utils"
+import "./style.css"
 
 /**
  * Приложение
@@ -19,7 +21,7 @@ function App({ store }) {
 
   const callbacks = {
     onAddItemInCard: (item) => {
-      store.addItemInCard(item)
+      store.addItemInCard(item.code)
       store.addInSumCard(item.price)
       store.changeCountCard()
     },
@@ -37,22 +39,28 @@ function App({ store }) {
   return (
     <PageLayout>
       <Head title="Магазин" />
-      <Controls onClosedCard={callbacks.onClosedCard} sumCard={sumCard} card={card} countCard={countCard}/>
+      <Controls onClosedCard={callbacks.onClosedCard} sumCardString={convertingNumbeInPrice(sumCard)} card={card} countCard={countCard} />
       <List
         list={list}
-        typeButton={"Добавить"}
         onAddItemInCard={callbacks.onAddItemInCard}
       />
-      {cardOpen == true &&
-        <Card
-          card={card}
-          sumCard={sumCard}
-          onClosedCard={callbacks.onClosedCard}
-          onDeleteInCard={callbacks.onDeleteInCard}
-          typeButton={"Удалить"}
-        />
-      }
-
+      <Modal activeModal={cardOpen}>
+        <Head title="Корзина" typeHead={"Card"} onClosedCard={callbacks.onClosedCard} />
+        {card.length == 0
+          ? <div className='Card-empty'>{"Корзина пуста :("}</div>
+          : <>
+            <List
+              list={card}
+              typeItem={"Card"}
+              onDeleteInCard={callbacks.onDeleteInCard}
+            />
+            <div className='Card-result-row'>
+              <div className='Card-label'>Итого</div>
+              <div className='Card-sum'>{convertingNumbeInPrice(sumCard) + ' ₽'}</div>
+            </div>
+          </>
+        }
+      </Modal>
     </PageLayout>
   );
 }

@@ -1,4 +1,3 @@
-import card from './components/card';
 import { generateCode } from './utils';
 
 /**
@@ -44,17 +43,17 @@ class Store {
   /**
    * Добавление новой записи
    */
-  addItemInCard(item) {
-    let it = this.state.card.filter((v) => v.code == item.code)[0]
-    if (it == null) {
+  addItemInCard(code) {
+    let item = this.state.card.filter((v) => v.code == code)[0]
+    if (item == null) {
       this.setState({
         ...this.state,
-        card: [...this.state.card, { ...item, countItem: 1 }],
+        card: [...this.state.card, { ...this.state.list.filter(v => v.code == code)[0], countItem: 1 }],
       });
     } else {
       this.setState({
         ...this.state,
-        card: [...this.state.card.filter(v => v.code != it.code), { ...it, countItem: it.countItem + 1 }],
+        card: [...this.state.card.filter(v => v.code != code), { ...item, countItem: item.countItem + 1 }],
       });
     }
   }

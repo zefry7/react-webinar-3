@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import './style.css';
 import { convertingNumbeInPrice } from "../../utils"
 
-function Item({ item = null, typeButton = "", onAddItemInCard = () => { }, onDeleteInCard = () => { } }) {
+function Item({ item = null, onAddItemInCard = () => { } }) {
 
   return (
     <div className='Item'>
@@ -14,13 +14,8 @@ function Item({ item = null, typeButton = "", onAddItemInCard = () => { }, onDel
       <div className='Item-price'>
         {convertingNumbeInPrice(item.price) + ' ₽'}
       </div>
-      {typeButton == "Удалить" &&
-        <div className='Item-count'>{item.countItem} шт</div>
-      }
       <div className="Item-actions">
-        {typeButton == "Удалить"
-          ? <button onClick={() => onDeleteInCard(item.code)}>{typeButton}</button>
-          : <button onClick={() => onAddItemInCard(item)}>{typeButton}</button>}
+        <button onClick={() => onAddItemInCard(item)}>Добавить</button>
       </div>
     </div>
   );
@@ -33,9 +28,7 @@ Item.propTypes = {
     price: PropTypes.number,
     count: PropTypes.number,
   }).isRequired,
-  typeButton: PropTypes.string,
   onAddItemInCard: PropTypes.func,
-  onDeleteInCard: PropTypes.func,
 };
 
 
