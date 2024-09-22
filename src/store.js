@@ -43,39 +43,39 @@ class Store {
   /**
    * Добавление новой записи
    */
-  addItemInCard(code) {
-    let item = this.state.card.filter((v) => v.code == code)[0]
+  addItemInCart(code) {
+    let item = this.state.cart.filter((v) => v.code == code)[0]
     if (item == null) {
       this.setState({
         ...this.state,
-        card: [...this.state.card, { ...this.state.list.filter(v => v.code == code)[0], countItem: 1 }],
+        cart: [...this.state.cart, { ...this.state.list.filter(v => v.code == code)[0], countItem: 1 }],
       });
     } else {
       this.setState({
         ...this.state,
-        card: [...this.state.card.filter(v => v.code != code), { ...item, countItem: item.countItem + 1 }],
+        cart: [...this.state.cart.filter(v => v.code != code), { ...item, countItem: item.countItem + 1 }],
       });
     }
   }
 
-  addInSumCard(price) {
+  addInSumCart(price) {
     this.setState({
       ...this.state,
-      sumCard: this.state.sumCard + price
+      sumCart: this.state.sumCart + price
     })
   }
 
-  subInSumCard(price) {
+  subInSumCart(price) {
     this.setState({
       ...this.state,
-      sumCard: this.state.sumCard - price
+      sumCart: this.state.sumCart - price
     })
   }
 
-  changeCountCard() {
+  changeCountCart() {
     this.setState({
       ...this.state,
-      countCard: this.state.card.length
+      countCart: this.state.cart.length
     })
   }
 
@@ -83,11 +83,11 @@ class Store {
    * Удаление записи по коду
    * @param code
    */
-  deleteItemInCard(code) {
+  deleteItemInCart(code) {
     this.setState({
       ...this.state,
       // Новый список, в котором не будет удаляемой записи
-      card: this.state.card.filter(item => item.code !== code),
+      cart: this.state.cart.filter(item => item.code !== code),
     });
   }
 }

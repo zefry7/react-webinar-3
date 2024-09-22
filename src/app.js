@@ -4,8 +4,10 @@ import Controls from './components/controls';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
 import Modal from './components/modal';
+import Item from './components/item';
 import { convertingNumbeInPrice } from "./utils"
 import "./style.css"
+import Cart from './components/cart';
 
 /**
  * Приложение
@@ -13,53 +15,41 @@ import "./style.css"
  * @returns {React.ReactElement}
  */
 function App({ store }) {
-  const [cardOpen, setCardOpen] = useState(false)
+  const [cartOpen, setCartOpen] = useState(false)
   const list = store.getState().list;
-  const card = store.getState().card;
-  const sumCard = store.getState().sumCard
-  const countCard = store.getState().countCard
+  const cart = store.getState().cart;
+  const sumCart = store.getState().sumCart
+  const countCart = store.getState().countCart
 
   const callbacks = {
-    onAddItemInCard: (item) => {
-      store.addItemInCard(item.code)
-      store.addInSumCard(item.price)
-      store.changeCountCard()
+    onAddItemInCart: (item) => {
+      store.addItemInCart(item.code)
+      store.addInSumCart(item.price)
+      store.changeCountCart()
     },
-    onDeleteInCard: (code) => {
-      store.deleteItemInCard(code)
-      let item = card.filter((v) => v.code == code)[0]
-      store.subInSumCard(item.price * item.countItem)
-      store.changeCountCard()
+    onDeleteInCart: (code) => {
+      store.deleteItemInCart(code)
+      let item = cart.filter((v) => v.code == code)[0]
+      store.subInSumCart(item.price * item.countItem)
+      store.changeCountCart()
     },
-    onClosedCard: () => {
-      setCardOpen(value => !value)
+    onClosedCart: () => {
+      setCartOpen(value => !value)
     }
   };
 
   return (
     <PageLayout>
       <Head title="Магазин" />
-      <Controls onClosedCard={callbacks.onClosedCard} sumCardString={convertingNumbeInPrice(sumCard)} card={card} countCard={countCard} />
+      <Controls onClosedCart={callbacks.onClosedCart} sumCartString={convertingNumbeInPrice(sumCart)} cart={cart} countCart={countCart} />
       <List
         list={list}
-        onAddItemInCard={callbacks.onAddItemInCard}
-      />
-      <Modal activeModal={cardOpen}>
-        <Head title="Корзина" typeHead={"Card"} onClosedCard={callbacks.onClosedCard} />
-        {card.length == 0
-          ? <div className='Card-empty'>{"Корзина пуста :("}</div>
-          : <>
-            <List
-              list={card}
-              typeItem={"Card"}
-              onDeleteInCard={callbacks.onDeleteInCard}
-            />
-            <div className='Card-result-row'>
-              <div className='Card-label'>Итого</div>
-              <div className='Card-sum'>{convertingNumbeInPrice(sumCard) + ' ₽'}</div>
-            </div>
-          </>
-        }
+        onAddItemInCart={callbacks.onAddItemInCart}
+      >
+        <Item onAddItemInCart={callbacks.onAddItemInCart} />
+      </List>
+      <Modal activeModal={cartOpen}>
+        <Cart cart={cart} onClosedCart={callbacks.onClosedCart} onDeleteInCart={callbacks.onDeleteInCart} sumCart={sumCart}/>
       </Modal>
     </PageLayout>
   );

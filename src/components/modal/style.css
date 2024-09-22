@@ -10,7 +10,6 @@
 }
 
 .Modal-wrapper {
-    overflow: scroll;
     display: flex;
     justify-content: center;
     align-items: center;

@@ -1,26 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Item from '../item';
-import ItemCard from "../itemCard";
 import './style.css';
 
 
-function List({ list = [], typeItem = "", onAddItemInCard = () => { }, onDeleteInCard = () => { } }) {
-
-  let selectItem = (item) => {
-    switch (typeItem) {
-      case "Card":
-        return <ItemCard item={item} onDeleteInCard={onDeleteInCard} />
-      default:
-        return <Item item={item} onAddItemInCard={onAddItemInCard} />
-    }
-  }
-
+function List({ children, list = [] }) {
+  
   return (
     <div className="List">
       {list.map(item => (
         <div key={item.code} className="List-item">
-          {selectItem(item)}
+          {React.cloneElement(children, item={item})}
         </div>
       ))}
     </div>
@@ -33,9 +22,7 @@ List.propTypes = {
       code: PropTypes.number,
     }),
   ).isRequired,
-  typeItem: PropTypes.string,
-  onAddItemInCard: PropTypes.func,
-  onDeleteInCard: PropTypes.func
+  children: PropTypes.node,
 };
 
 export default React.memo(List);

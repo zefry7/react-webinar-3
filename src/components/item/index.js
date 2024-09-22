@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import './style.css';
 import { convertingNumbeInPrice } from "../../utils"
 
-function Item({ item = null, onAddItemInCard = () => { } }) {
+function Item({ item = null, onAddItemInCart = () => { } }) {
 
   return (
     <div className='Item'>
@@ -15,7 +15,7 @@ function Item({ item = null, onAddItemInCard = () => { } }) {
         {convertingNumbeInPrice(item.price) + ' ₽'}
       </div>
       <div className="Item-actions">
-        <button onClick={() => onAddItemInCard(item)}>Добавить</button>
+        <button onClick={() => onAddItemInCart(item)}>Добавить</button>
       </div>
     </div>
   );
@@ -28,7 +28,7 @@ Item.propTypes = {
     price: PropTypes.number,
     count: PropTypes.number,
   }).isRequired,
-  onAddItemInCard: PropTypes.func,
+  onAddItemInCart: PropTypes.func,
 };
 
 
