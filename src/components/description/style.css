@@ -1,0 +1,27 @@
+.Description {
+    padding: 20px 40px 0px;
+    font-size: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+p {
+    margin: 0;
+}
+
+.Description-text > span {
+    font-weight: 700;
+}
+
+
+.Description-price {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.Description-loader {
+    font-size: 36px;
+    text-align: center;
+    line-height: 250px;
+}

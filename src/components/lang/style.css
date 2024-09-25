@@ -1,0 +1,28 @@
+.Lang {
+    display: flex;
+    font-size: 20px;
+}
+
+.Lang-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.Lang-wrapper hr {
+    height: 80%;
+    margin: 0;
+}
+
+.Lang-item {
+    padding: 5px;
+    border-radius: 7px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+.Lang-item_active {
+    border-color: #0087E9;
+    background-color: #0087E9;
+    color: white;
+}
