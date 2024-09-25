@@ -1,0 +1,38 @@
+.ItemCart {
+    display: flex;
+    justify-content: flex-start;
+    transition: background-color 1s;
+  }
+  
+  .ItemCart_selected {
+    background: #75aaf1;
+    color: #fff;
+  }
+  
+  .ItemCart-code {
+    padding: 20px 10px 20px 20px;
+  }
+  
+  .ItemCart-title {
+    width: 100%;
+    padding: 20px 10px;
+  }
+  
+  .ItemCart-price {
+    min-width: max-content;
+    font-size: 18px;
+    padding: 19px 62px 21px 0px;
+  }
+  
+  .ItemCart-count {
+    min-width: max-content;
+    font-size: 18px;
+    padding: 19px 14px 21px 0px;
+  }
+  
+  .ItemCart-actions {
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px 20px 20px 10px;
+  }
+  
