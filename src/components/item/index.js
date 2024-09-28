@@ -5,7 +5,7 @@ import { numberFormat } from '../../utils';
 import './style.css';
 import { Link } from 'react-router-dom';
 
-function Item({ onAdd = () => {}, item, textButton}) {
+function Item({ onAdd = () => {}, item, textButton, descrPath = "/articles/"}) {
   const cn = bem('Item');
 
   const callbacks = {
@@ -14,7 +14,7 @@ function Item({ onAdd = () => {}, item, textButton}) {
 
   return (
     <div className={cn()}>
-      <Link to={`/${item._id}`} className={cn('title')}>{item.title}</Link>
+      <Link to={descrPath + item._id} className={cn('title')}>{item.title}</Link>
       <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(item.price)} ₽</div>
         <button onClick={callbacks.onAdd}>{textButton}</button>
@@ -30,7 +30,8 @@ Item.propTypes = {
     price: PropTypes.number,
   }).isRequired,
   onAdd: PropTypes.func,
-  textButtonL: PropTypes.string
+  textButtonL: PropTypes.string,
+  descrPath: PropTypes.string
 };
 
 

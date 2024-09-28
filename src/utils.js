@@ -35,7 +35,7 @@ export function numberFormat(value, locale = 'ru-RU', options = {}) {
 }
 
 
-export function changeLangText(lang, label) {
+export function changeLangText(lang = "ru", label = "", takeReady = true) {
   const listText = {
     "ru": {
       mainTitle: "Магазин",
@@ -71,5 +71,5 @@ export function changeLangText(lang, label) {
     }
   }
 
-  return listText[lang][label]
+  return takeReady == true ? listText[lang][label] : label
 }

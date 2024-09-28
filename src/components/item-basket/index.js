@@ -6,22 +6,21 @@ import PropTypes from 'prop-types';
 import './style.css';
 import { Link } from 'react-router-dom';
 
-function ItemBasket(props) {
+function ItemBasket({ onRemove = () => {}, closeModal = () => {}, item, textButton = "Удалить", descrPath = "/articles/" }) {
   const cn = bem('ItemBasket');
 
   const callbacks = {
-    onRemove: e => props.onRemove(props.item._id),
+    onRemove: e => onRemove(item._id),
   };
 
   return (
     <div className={cn()}>
-      {/*<div className={cn('code')}>{props.item._id}</div>*/}
-      <Link to={`/${props.item._id}`} className={cn('title')} onClick={() => props.closeModal()}>{props.item.title}</Link>
+      <Link to={descrPath + item._id} className={cn('title')} onClick={() => closeModal()}>{item.title}</Link>
       <div className={cn('right')}>
-        <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
-        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>
+        <div className={cn('cell')}>{numberFormat(item.price)} ₽</div>
+        <div className={cn('cell')}>{numberFormat(item.amount || 0)} шт</div>
         <div className={cn('cell')}>
-          <button onClick={callbacks.onRemove}>{props.textButton}</button>
+          <button onClick={callbacks.onRemove}>{textButton}</button>
         </div>
       </div>
     </div>
@@ -36,10 +35,9 @@ ItemBasket.propTypes = {
     amount: PropTypes.number,
   }).isRequired,
   onRemove: propTypes.func,
-};
-
-ItemBasket.defaultProps = {
-  onRemove: () => {},
+  closeModal: propTypes.func,
+  descrPath: propTypes.string,
+  textButton: propTypes.string
 };
 
 export default memo(ItemBasket);
