@@ -33,6 +33,7 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+<<<<<<< HEAD
 
 
 export function changeLangText(lang, label) {
@@ -73,3 +74,5 @@ export function changeLangText(lang, label) {
 
   return listText[lang][label]
 }
+=======
+>>>>>>> 7cac612c138cd905f31764e550381383abca68f1

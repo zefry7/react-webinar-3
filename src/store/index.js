@@ -8,9 +8,17 @@ class Store {
     this.listeners = []; // Слушатели изменений состояния
     this.state = initState;
     /** @type {{
+<<<<<<< HEAD
      * basket: Basket,
      * catalog: Catalog,
      * modals: Modals
+=======
+     * basket: BasketState,
+     * catalog: CatalogState,
+     * modals: ModalsState,
+     * article: ArticleState,
+     * locale: LocaleState
+>>>>>>> 7cac612c138cd905f31764e550381383abca68f1
      * }} */
     this.actions = {};
     for (const name of Object.keys(modules)) {
@@ -34,7 +42,17 @@ class Store {
 
   /**
    * Выбор состояния
+<<<<<<< HEAD
    * @returns {{basket: Object, catalog: Object, modals: Object}}
+=======
+   * @returns {{
+   * basket: Object,
+   * catalog: Object,
+   * modals: Object,
+   * article: Object,
+   * locale: Object
+   * }}
+>>>>>>> 7cac612c138cd905f31764e550381383abca68f1
    */
   getState() {
     return this.state;
