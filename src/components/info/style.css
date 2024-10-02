@@ -1,0 +1,15 @@
+.Info {
+    padding: 20px;
+}
+
+.Info-title {
+    margin-bottom: 30px;
+}
+
+.Info-data {
+    font-size: 18px;
+}
+
+.Info-data span {
+    font-weight: bold;
+}

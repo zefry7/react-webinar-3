@@ -1,39 +1,3 @@
-<<<<<<< HEAD
-import lang from '../../components/lang';
-import { codeGenerator } from '../../utils';
-import StoreModule from '../module';
-
-class Catalog extends StoreModule {
-  constructor(store, name) {
-    super(store, name);
-    this.generateCode = codeGenerator(0);
-  }
-
-  initState() {
-    return {
-      list: [],
-      maxPage: 0,
-      page: 1,
-      pageList: [],
-      lang: "ru"
-    };
-  }
-
-  async loadPageList() {
-    const response = await fetch(`/api/v1/articles?limit=10&skip=${(this.getState().page - 1) * 10}`);
-    const json = await response.json();
-    this.setState(
-      {
-        ...this.getState(),
-        pageList: json.result.items,
-      },
-      'Загружены товары из АПИ',
-    );
-  }
-
-  async load() {
-    const response = await fetch(`/api/v1/articles?limit=*`);
-=======
 import StoreModule from '../module';
 
 /**
@@ -52,7 +16,9 @@ class CatalogState extends StoreModule {
         limit: 10,
         sort: 'order',
         query: '',
+        category: 'all',
       },
+      categoryList: [{value: "all", title: "Все"}],
       count: 0,
       waiting: false,
     };
@@ -123,46 +89,28 @@ class CatalogState extends StoreModule {
       'search[query]': params.query,
     };
 
+    if(params.category != 'all') {
+      apiParams['search[category]'] = params.category
+    }
+
     const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
->>>>>>> 7cac612c138cd905f31764e550381383abca68f1
     const json = await response.json();
     this.setState(
       {
         ...this.getState(),
         list: json.result.items,
-<<<<<<< HEAD
-        maxPage: Math.ceil(json.result.items.length / 10),
-      },
-    );
-  }
-
-  changePage(numberPage) {
-    this.setState(
-      {
-        ...this.getState(),
-        page: numberPage,
-      },
-    );
-  }
-
-  changeLang(lang) {
-    this.setState(
-      {
-        ...this.getState(),
-        lang: lang,
-      },
-=======
         count: json.result.count,
         waiting: false,
       },
       'Загружен список товаров из АПИ',
->>>>>>> 7cac612c138cd905f31764e550381383abca68f1
     );
+  }
+
+  setCategoryList(list) {
+    this.setState({ ...this.getState(), categoryList: [{value: "all", title: "Все"}, ...list] })
   }
 }
 
-<<<<<<< HEAD
-export default Catalog;
-=======
+
+
 export default CatalogState;
->>>>>>> 7cac612c138cd905f31764e550381383abca68f1

@@ -1,4 +1,4 @@
-import { memo, useCallback, useMemo } from 'react';
+import { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import useTranslate from '../../hooks/use-translate';
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
@@ -11,9 +11,12 @@ import SideLayout from '../../components/side-layout';
  */
 function CatalogFilter() {
   const store = useStore();
+  const { t } = useTranslate();
 
   const select = useSelector(state => ({
     sort: state.catalog.params.sort,
+    category: state.catalog.params.category,
+    categoryList: state.catalog.categoryList,
     query: state.catalog.params.query,
   }));
 
@@ -24,6 +27,8 @@ function CatalogFilter() {
     onSearch: useCallback(query => store.actions.catalog.setParams({ query, page: 1 }), [store]),
     // Сброс
     onReset: useCallback(() => store.actions.catalog.resetParams(), [store]),
+    // Категория
+    onCategory: useCallback(category => store.actions.catalog.setParams({ category, page: 1 }), [store]),
   };
 
   const options = {
@@ -38,10 +43,54 @@ function CatalogFilter() {
     ),
   };
 
-  const { t } = useTranslate();
+  useEffect(() => {
+
+    const fetchCategory = async () => {
+      const respone = await fetch("/api/v1/categories?fields=_id,title,parent(_id)&limit=*")
+      const json = await respone.json()
+
+      let res = []
+      let arr = []
+      let map = new Map()
+
+      for (const x of json.result.items) {
+        map.set(x._id, { title: x.title, parent: x.parent?._id || null })
+      }
+
+      for (const x of json.result.items) {
+        if (map.get(x._id).parent != null) {
+          arr.push([{ title: map.get(map.get(x._id).parent).title, id: map.get(x._id).parent }, { title: x.title, id: x._id }])
+        } else {
+          arr.push([null, { title: x.title, id: x._id }])
+        }
+      }
+
+      function ttt(value, line) {
+        for (let i = 0; i < arr.length; ++i) {
+          if (arr[i][0]?.title == value.title) {
+            ttt(arr[i][1], line + "-")
+          }
+        }
+        res.push({ title: line + "" + value.title, value: value.id })
+      }
+
+      for (let i = 0; i < arr.length; ++i) {
+        if (arr[i][0] == null) {
+          ttt(arr[i][1], "")
+        }
+      }
+
+      res.reverse()
+
+      store.actions.catalog.setCategoryList(res)
+    }
+
+    fetchCategory()
+  }, [])
 
   return (
     <SideLayout padding="medium">
+      <Select options={select.categoryList} value={select.category} onChange={callbacks.onCategory} />
       <Select options={options.sort} value={select.sort} onChange={callbacks.onSort} />
       <Input
         value={select.query}

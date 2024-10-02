@@ -1,0 +1,24 @@
+.Register {
+    padding: 20px;
+}
+
+.Register-form {
+    display: flex;
+    flex-direction: column;
+    width: max-content;
+}
+
+.Register-label {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.Register-error {
+    margin: 0 0 20px;
+    color: #FF0000;
+}
+
+.Register-sing-button {
+    width: max-content;
+}

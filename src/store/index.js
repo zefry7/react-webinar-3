@@ -42,9 +42,6 @@ class Store {
 
   /**
    * Выбор состояния
-<<<<<<< HEAD
-   * @returns {{basket: Object, catalog: Object, modals: Object}}
-=======
    * @returns {{
    * basket: Object,
    * catalog: Object,
@@ -52,7 +49,6 @@ class Store {
    * article: Object,
    * locale: Object
    * }}
->>>>>>> 7cac612c138cd905f31764e550381383abca68f1
    */
   getState() {
     return this.state;

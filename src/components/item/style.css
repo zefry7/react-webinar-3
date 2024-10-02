@@ -17,13 +17,6 @@
 .Item-title {
   width: 100%;
   padding: 20px 10px;
-<<<<<<< HEAD
-  color: black;
-  text-decoration: none;
-}
-
-.Item-title:hover {
-=======
 }
 
 .Item-title a {
@@ -33,7 +26,6 @@
 
 .Item-title a:hover {
   color: #000;
->>>>>>> 7cac612c138cd905f31764e550381383abca68f1
   text-decoration: underline;
 }
 

@@ -1,44 +1,4 @@
 .Pagination {
-<<<<<<< HEAD
-    display: flex;
-    justify-content: end;
-}
-
-.Pagination-content {
-    padding: 22px;
-    display: flex;
-}
-
-.Pagination-number {
-    height: 20px;
-    padding: 0 1px;
-    min-width: 18px;
-    text-align: center;
-    line-height: 22px;
-    cursor: pointer;
-}
-
-.Pagination-number:hover  {
-    background: #E1E1E1;
-}
-
-.Pagination-number_active {
-    color: white;
-    background-color: #0087E9;
-}
-
-.Pagination-number_active:hover {
-    color: white;
-    background-color: #0087E9;
-}
-
-.Pagination-threeDots {
-    width: 20px;
-    text-align: center;
-    height: 20px;
-    color: #CCCCCC;
-}
-=======
   display: flex;
   list-style: none;
   justify-content: flex-end;
@@ -84,4 +44,3 @@
   cursor: default;
   color: #cccccc;
 }
->>>>>>> 7cac612c138cd905f31764e550381383abca68f1
