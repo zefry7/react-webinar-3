@@ -6,13 +6,28 @@ import Basket from './basket';
 import Article from './article';
 import Login from './login';
 import Profile from './profile';
+import useStore from '../hooks/use-store';
 
 /**
  * Приложение
  * Маршрутизация по страницам и модалкам
  */
 function App() {
-  const activeModal = useSelector(state => state.modals.name);
+  const store = useStore();
+  
+  const select = useSelector(state => ({
+    token: state.login.token,
+    activeModal: state.modals.name
+  }));
+
+  useEffect(() => {
+    store.actions.login.checkToken()
+  }, [])
+
+  useEffect(() => {
+    if (select.token != "")
+      store.actions.profile.getDataUser()
+  }, [select.token])
 
   return (
     <>
@@ -23,7 +38,7 @@ function App() {
         <Route path={'/profile'} element={<Profile />} />
       </Routes>
 
-      {activeModal === 'basket' && <Basket />}
+      {select.activeModal === 'basket' && <Basket />}
     </>
   );
 }

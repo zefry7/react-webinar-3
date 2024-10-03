@@ -18,7 +18,6 @@ class CatalogState extends StoreModule {
         query: '',
         category: 'all',
       },
-      categoryList: [{value: "all", title: "Все"}],
       count: 0,
       waiting: false,
     };
@@ -104,10 +103,6 @@ class CatalogState extends StoreModule {
       },
       'Загружен список товаров из АПИ',
     );
-  }
-
-  setCategoryList(list) {
-    this.setState({ ...this.getState(), categoryList: [{value: "all", title: "Все"}, ...list] })
   }
 }
 

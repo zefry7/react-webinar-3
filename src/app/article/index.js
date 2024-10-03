@@ -1,5 +1,5 @@
 import { memo, useCallback, useMemo } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import useStore from '../../hooks/use-store';
 import useSelector from '../../hooks/use-selector';
 import useTranslate from '../../hooks/use-translate';
@@ -16,6 +16,7 @@ import Sign from '../../components/sign';
  * Страница товара с первичной загрузкой товара по id из url адреса
  */
 function Article() {
+  const navigate = useNavigate();
   const store = useStore();
 
   // Параметры из пути /articles/:id
@@ -28,6 +29,8 @@ function Article() {
   const select = useSelector(state => ({
     article: state.article.data,
     waiting: state.article.waiting,
+    token: state.login.token,
+    user: state.profile.user
   }));
 
   const { t } = useTranslate();
@@ -35,11 +38,15 @@ function Article() {
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
+    exitAccount: useCallback(() => {
+      navigate("/")
+      store.actions.login.exitAccount()
+    }, [store]),
   };
 
   return (
     <PageLayout>
-      <Sign />
+      <Sign token={select.token} username={select.user.username} exitAccount={callbacks.exitAccount} />
       <Head title={select.article.title}>
         <LocaleSelect />
       </Head>

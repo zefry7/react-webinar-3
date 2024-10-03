@@ -6,7 +6,6 @@ class LoginState extends StoreModule {
         return {
             token: "",
             error: "",
-            user: {}
         };
     }
 
@@ -24,33 +23,32 @@ class LoginState extends StoreModule {
         })
         const json = await response.json()
 
-        console.log(json);
         
-        if(!json.error) {
+        if (!json.error) {
+            document.cookie = `token=${json.result.token}`
             this.setState({ ...this.getState(), token: json.result.token })
         } else {
             this.setState({ ...this.getState(), error: json.error.message })
         }
     }
-    
-    async getDataUser() {
-        const response = await fetch("/api/v1/users/self?fields=*", {
-            method: "GET",
+
+    async exitAccount() {
+        await fetch("/api/v1/users/sign", {
+            method: "DELETE",
             headers: {
                 "X-Token": this.getState().token,
                 "Content-Type": "application/json"
             },
         })
-        const json = await response.json()
-
-        console.log(this.getState().token, json.result);
-        
-
-        this.setState({...this.getState(), user: {email: json.result.email, name: json.result.profile.name, phone: json.result.profile.phone, username: json.result.username}})
+        document.cookie = "token=;"
+        this.setState({ ...this.getState(), token: "", user: {}, error: "" })
     }
 
-    exitAccount() {
-        this.setState({ ...this.getState(), token: "", user: {}, error: "" })
+    checkToken() {
+        let token = document.cookie?.split(";")[0]?.split("=")[1]
+        if(token != null) {
+            this.setState({ ...this.getState(), token: token})
+        }
     }
 }
 

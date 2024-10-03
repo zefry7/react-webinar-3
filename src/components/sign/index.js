@@ -1,33 +1,16 @@
-import React, { memo, useCallback } from "react";
+import React, { memo } from "react";
 import "./style.css"
-import { Link, useNavigate } from "react-router-dom";
-import useStore from "../../hooks/use-store";
-import useSelector from "../../hooks/use-selector";
+import { Link } from "react-router-dom";
 
-function Sign() {
-    const navigate = useNavigate();
-    let store = useStore()
-
-    const select = useSelector(state => ({
-        token: state.login.token,
-        user: state.login.user
-    }));
-
-    const callbacks = {
-        exitAccount: useCallback(() => { 
-            navigate("/")
-            store.actions.login.exitAccount() 
-        }, [store]),
-    };
-
+function Sign({token, username, exitAccount}) {
 
     return <div className="Sign">
-        {select.token != ""
+        {token != ""
             ? <>
                 <Link to={"/profile"}>
-                    {select.user.username}
+                    {username}
                 </Link>
-                <button onClick={() => callbacks.exitAccount()}>Выход</button>
+                <button onClick={() => exitAccount()}>Выход</button>
             </>
             : <Link to={"/login"}>
                 <button>Вход</button>

@@ -17,11 +17,15 @@ function Profile() {
 
     const select = useSelector(state => ({
         token: state.login.token,
-        user: state.login.user
+        user: state.profile.user
     }));
 
     const callbacks = {
-        getDataUser: useCallback(() => store.actions.login.getDataUser(), [store])
+        getDataUser: useCallback(() => store.actions.profile.getDataUser(), [store]),
+        exitAccount: useCallback(() => {
+            navigate("/")
+            store.actions.login.exitAccount()
+        }, [store]),
     };
 
     const { t } = useTranslate();
@@ -32,10 +36,10 @@ function Profile() {
         } else {
             callbacks.getDataUser()
         }
-    }, [])
+    }, [select.token])
 
     return <PageLayout>
-        <Sign />
+        <Sign token={select.token} username={select.user.username} exitAccount={callbacks.exitAccount} />
         <Head title={t('title')}>
             <LocaleSelect />
         </Head>

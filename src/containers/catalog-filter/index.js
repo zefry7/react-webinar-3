@@ -16,7 +16,7 @@ function CatalogFilter() {
   const select = useSelector(state => ({
     sort: state.catalog.params.sort,
     category: state.catalog.params.category,
-    categoryList: state.catalog.categoryList,
+    categoryList: state.category.categoryList,
     query: state.catalog.params.query,
   }));
 
@@ -68,7 +68,7 @@ function CatalogFilter() {
       function ttt(value, line) {
         for (let i = 0; i < arr.length; ++i) {
           if (arr[i][0]?.title == value.title) {
-            ttt(arr[i][1], line + "-")
+            ttt(arr[i][1], line + "- ")
           }
         }
         res.push({ title: line + "" + value.title, value: value.id })
@@ -82,7 +82,7 @@ function CatalogFilter() {
 
       res.reverse()
 
-      store.actions.catalog.setCategoryList(res)
+      store.actions.category.setCategoryList(res)
     }
 
     fetchCategory()

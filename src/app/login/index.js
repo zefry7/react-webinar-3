@@ -18,26 +18,31 @@ function Login() {
     const select = useSelector(state => ({
         token: state.login.token,
         error: state.login.error,
+        user: state.profile.user
     }));
 
     const callbacks = {
         // Удаление из корзины
         registerUser: useCallback((login, password) => store.actions.login.registerUser(login, password), [store]),
+        exitAccount: useCallback(() => {
+            navigate("/")
+            store.actions.login.exitAccount()
+        }, [store]),
     };
 
-    useEffect(() => {  
-        if(select.token != "") {
+    useEffect(() => {
+        if (select.token != "") {
             navigate("/profile")
         }
-    }, [select])
+    }, [select.token])
 
     return <PageLayout>
-        <Sign />
+        <Sign token={select.token} username={select.user.username} exitAccount={callbacks.exitAccount} />
         <Head title={t('title')}>
             <LocaleSelect />
         </Head>
         <Navigation />
-        <Register onRegister={callbacks.registerUser} error={select.error}/>
+        <Register onRegister={callbacks.registerUser} error={select.error} />
     </PageLayout>
 }
 
