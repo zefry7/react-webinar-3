@@ -1,0 +1,34 @@
+.input-comment {
+
+}
+
+.input-comment__content {
+
+}
+
+.input-comment__title {
+    font-weight: bold;
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+.input-comment__form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.input-comment__textarea {
+    height: 76px;
+    resize: none;
+}
+
+.input-comment__button {
+    width: 90px;
+    max-width: max-content;
+}
+
+.input-comment__row-buttons {
+    display: flex;
+    gap: 10px;
+}

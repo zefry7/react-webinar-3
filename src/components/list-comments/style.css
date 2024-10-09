@@ -1,0 +1,23 @@
+.list-comment {
+
+}
+
+.list-comment__content {
+    padding: 30px 40px;
+}
+
+.list-comment__title {
+    margin-bottom: 25px;
+    font-size: 24px;
+}
+
+.list-comment__list {
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.list-comment__no-login {
+    font-size: 18px;
+}

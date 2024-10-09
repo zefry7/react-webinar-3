@@ -1,0 +1,41 @@
+.comment {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    margin-left: var(--data-tab);
+}
+
+.comment__top-row {
+    display: flex;
+    gap: 10px;
+}
+
+.comment__name-user {
+    font-weight: bold;
+    margin: 0;
+}
+
+.comment__date {
+    color: #666666;
+    margin: 0;
+}
+
+.comment__text {
+}
+
+.comment__button {
+    color: #0087E9;
+    cursor: pointer;
+}
+
+.comment__button-cancle {
+    color: #666666;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.comment__no-login {
+    margin-top: 20px;
+    font-size: 18px;
+}
