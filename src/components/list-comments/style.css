@@ -21,3 +21,8 @@
 .list-comment__no-login {
     font-size: 18px;
 }
+
+.list-comment__no-login a {
+    color: #0087E9;
+    text-decoration: underline;
+}

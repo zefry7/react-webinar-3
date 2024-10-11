@@ -14,19 +14,28 @@
 .comment__name-user {
     font-weight: bold;
     margin: 0;
+    font-size: 12px;
+}
+
+.comment__name-user_author {
+    color: #666666;
 }
 
 .comment__date {
     color: #666666;
     margin: 0;
+    font-size: 12px;
 }
 
 .comment__text {
+    font-size: 14px;
+    word-break: break-all;
 }
 
 .comment__button {
     color: #0087E9;
     cursor: pointer;
+    font-size: 12px;
 }
 
 .comment__button-cancle {
@@ -39,3 +48,8 @@
     margin-top: 20px;
     font-size: 18px;
 }
+.comment__no-login a {
+    color: #0087E9;
+    text-decoration: underline;
+}
+

@@ -1,3 +1,5 @@
+import createTree from "../../utils/createTree";
+
 // Начальное состояние
 export const initialState = {
     list: []
@@ -7,7 +9,8 @@ export const initialState = {
 function reducer(state = initialState, action) {
     switch (action.type) {
         case 'comment/addComment':
-            return { ...state, list: [...state.list, action.value] };
+            let list = createTree([...state.list, action.value.item])
+            return { ...state, list: list };
         case 'comment/loadComment':
             return { ...state, list: action.value };
         default:
